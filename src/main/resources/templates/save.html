@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:if="${persona.id eq null}">Agregar Persona</title>
+    <title th:unless="${persona.id eq null}">Editar Persona</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="../static/css/bootstrap.css" rel="stylesheet" th:href="@{/css/bootstrap.css}">
+</head>
+<body>
+<div class="container">
+    <br>
+    <h2 th:if="${persona.id eq null}">Agregar Persona</h2>
+    <h2 th:unless="${persona.id eq null}">Editar Persona</h2>
+
+    <!-- Mostrar mensaje de error si está presente -->
+    <div th:if="${error}" class="alert alert-danger" role="alert">
+        <p th:text="${error}"></p>
+    </div>
+
+    <form action="#" th:action="@{/save}" th:object="${persona}" method="post">
+        <div class="form-group">
+            <label for="dni">DNI</label>
+            <input type="text" class="form-control" id="dni" th:field="*{DNI}" name="dni"
+                   th:readonly="${persona.id != null}">
+        </div>
+        <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control" id="nombre" th:field="*{nombre}" name="nombre">
+        </div>
+
+        <input type="hidden" th:field="*{id}" name="id" id="id">
+
+        <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" class="form-control" id="apellido" th:field="*{apellido}" name="apellido">
+        </div>
+
+        <div class="form-group">
+            <label for="fechaNac">Fecha de Nacimiento</label>
+            <input type="text" class="form-control" id="fechaNac" th:field="*{fechaNac}" name="fechaNac">
+        </div>
+
+        <div class="form-group">
+            <label for="profesion">Profesión</label>
+            <input type="text" class="form-control" id="profesion" th:field="*{profesion}" name="profesion">
+        </div>
+
+        <button type="submit" class="btn btn-success">Guardar</button>
+    </form>
+</div>
+</body>
+</html>
